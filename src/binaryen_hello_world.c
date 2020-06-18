@@ -1,6 +1,6 @@
 /* #include "binaryen_hello_world.h" */
 
-#include <binaryen-c.h>
+#include "binaryen-c.h"
 
 // "hello world" type example: create a function that adds two i32s and returns
 // the result

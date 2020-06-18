@@ -1,0 +1,1 @@
+You gotta add compile flag to binaryen CMakeTexts.text : -pthread otherwise compiled libbinaryen.so won't run. It won't be able to find pthread-create

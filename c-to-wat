@@ -29,7 +29,7 @@ llc \
 #   add.o
 
 # object to wasm (.o > .wasm)
-wasm-ld --no-entry --export-all -o add.wasm  add.o
+wasm-ld --no-entry --export-all -allow-undefined-file wasm.syms -o add.wasm  add.o
 
 # .wast to .wat
 wasm2wat add.wasm > add.wat
