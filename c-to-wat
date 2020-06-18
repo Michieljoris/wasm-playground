@@ -1,0 +1,35 @@
+# clang  \
+#   --target=wasm32 \ # Target WebAssembly
+#   -emit-llvm \ # Emit LLVM IR (instead of host machine code)
+#   -c \ # Only compile, no linking just yet
+#   -S \ # Emit human-readable assembly rather than binary
+#   add.c
+
+# c to llvm-ir (.c > .ll)
+clang --target=wasm32 \
+  -emit-llvm -c -S \
+  add.c
+
+
+# llc \
+#   -march=wasm32 \ # Target WebAssembly
+#   -filetype=obj \ # Output an object file
+#   add.ll
+
+# llvm-ir to object (.ll > .o)
+llc \
+  -march=wasm32 \
+  -filetype=obj \
+  add.ll
+
+# wasm-ld \
+#   --no-entry \ # we don’t have an entry function
+#   --export-all \ # export everything (for now)
+#   -o add.wasm \
+#   add.o
+
+# object to wasm (.o > .wasm)
+wasm-ld --no-entry --export-all -o add.wasm  add.o
+
+# .wast to .wat
+wasm2wat add.wasm > add.wat

@@ -1,0 +1,10 @@
+# clang  \
+#   --target=wasm32 \ # Target WebAssembly
+#   -emit-llvm \ # Emit LLVM IR (instead of host machine code)
+#   -c \ # Only compile, no linking just yet
+#   -S \ # Emit human-readable assembly rather than binary
+#   add.c
+
+clang --target=wasm32 \
+  -emit-llvm -c -S \
+  add.c

@@ -1,0 +1,1 @@
+ gcc src/binaryen_hello_world.c -Wl,-rpath=/home/mj/src/wasm/playground/lib -g -Llib -Isrc -lbinaryen -pthread -o hello-world

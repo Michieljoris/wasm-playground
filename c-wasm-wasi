@@ -1,0 +1,13 @@
+clang \
+--target=wasm32-unknown-wasi \
+--sysroot /opt/wasi-sysroot \
+-nostartfiles \
+-Wl,--import-memory \
+-Wl,--no-entry \
+-Wl,--export-all \
+-o print.wasm \
+print.c
+
+
+# CC="/opt/wasi-sdk/bin/clang"
+# $CC --target=wasm32-unknown-wasi -nostartfiles -Wl,--import-memory -Wl,--no-entry -Wl,--export-all -o print.wasm print.c

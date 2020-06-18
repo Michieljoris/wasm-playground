@@ -1,0 +1,8 @@
+# wasm-ld \
+#   --no-entry \ # we don’t have an entry function
+#   --export-all \ # export everything (for now)
+#   -o add.wasm \
+#   add.o
+
+
+wasm-ld --no-entry --export-all -o add.wasm  add.o
