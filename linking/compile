@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--shared -o out.wasm module1.c module2.c
+
+# clang --target=wasm32 -Ofast  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O3 --shared -o out.wasm module1.c module2.c
+clang --target=wasm32 -O3  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O0 -Wl,--shared -o out.wasm module1.c module2.c
+wasm-opt out.wasm --print
+
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module1.wasm module1.c
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module2.wasm module2.c

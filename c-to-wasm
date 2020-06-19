@@ -1,3 +1,4 @@
+#!/bin/bash
 # clang \
 #   --target=wasm32 \
 #   -nostdlib \ # Don’t try and link against a standard library
@@ -11,16 +12,26 @@
   # -flto \ # Add metadata for link-time optimizations
 
 # -Wl,--lto-O3 \ # Aggressive link-time optimizations
+
+# clang \
+#   --target=wasm32 \
+#   -Ofast \
+#   -flto \
+#   -nostdlib \
+#   -Wl,--no-entry \
+#   -Wl,--export-all \
+#   -Wl,--lto-O3  \
+#   -o foo.wasm \
+#   linking/module1.c
 clang \
   --target=wasm32 \
-  -Ofast \
-  -flto \
   -nostdlib \
   -Wl,--no-entry \
   -Wl,--export-all \
-  -Wl,--lto-O3  \
-  -o add.wasm \
-  add.c
+  -Wl,--shared \
+  -o foo.wasm \
+  linking/module1.c
 
 # .wast to .wat
-wasm2wat add.wasm > add.wat
+# wasm2wat add.wasm > add.wat
+wasm2wat foo.wasm > foo.wat
