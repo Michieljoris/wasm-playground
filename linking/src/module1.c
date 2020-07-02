@@ -3,7 +3,7 @@ int bar() {
 }
 
 int fox() {
-    return bar();
+    return 1 + bar();
 }
 
 

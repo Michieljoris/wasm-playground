@@ -23,15 +23,16 @@
 #   -Wl,--lto-O3  \
 #   -o foo.wasm \
 #   linking/module1.c
+  # -Wl,--shared \
 clang \
   --target=wasm32 \
   -nostdlib \
   -Wl,--no-entry \
   -Wl,--export-all \
-  -Wl,--shared \
-  -o foo.wasm \
-  linking/module1.c
+  -o va_list.wasm \
+  va_list.c
+  # linking/module1.c
 
 # .wast to .wat
 # wasm2wat add.wasm > add.wat
-wasm2wat foo.wasm > foo.wat
+wasm2wat va_list.wasm > va_list.wat

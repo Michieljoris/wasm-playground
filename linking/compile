@@ -1,10 +1,48 @@
 #!/bin/bash
 
-# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--shared -o out.wasm module1.c module2.c
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--shared -o fox.wasm module1.c
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module2.wasm module2.c fox.wasm
 
-# clang --target=wasm32 -Ofast  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O3 --shared -o out.wasm module1.c module2.c
-clang --target=wasm32 -O3  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O0 -Wl,--shared -o out.wasm module1.c module2.c
-wasm-opt out.wasm --print
+# clang -std=c99 -Wall module1.c module2.c
+
+# clang --target=wasm32 \
+#   -emit-llvm -c -S \
+#   module1.c
+
+# clang --target=wasm32 \
+#   -emit-llvm -c -S \
+#   module2.c
+
+# llc \
+#   -march=wasm32 \
+#   -filetype=obj \
+#   module1.ll
+
+# llc \
+#   -march=wasm32 \
+#   -filetype=obj \
+#   module2.ll
+
+# wasm-ld --no-entry --export-all -allow-undefined \
+#     -initial-memory=262144 \
+# -o yippee.wasm  module1.o module2.o
+
+# wasm-opt yippee.wasm --print
+
+
+# clang --target=wasm32 -Ofast  -flto -nostdlib \
+#     -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O3 \
+#     --shared -o out.wasm module1.c module2.c
+
+clang -g -std=c99 -Wall --target=wasm32 -O3  -flto -nostdlib \
+-c module1.c module2.c
+
+clang --target=wasm32 -O3  -flto -nostdlib \
+    -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O3 \
+    module1.o module2.o \
+    -o yippee.wasm
+
+# wasm-opt yippee.wasm --print
 
 # clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module1.wasm module1.c
 # clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module2.wasm module2.c

@@ -1,23 +1,17 @@
-; ModuleID = 'add.c'
-source_filename = "add.c"
+; ModuleID = 'module1.c'
+source_filename = "module1.c"
 target datalayout = "e-m:e-p:32:32-i64:64-n32:64-S128"
 target triple = "wasm32"
 
-@__heap_base = external global i8, align 1
-@heap_pointer = hidden global i8* @__heap_base, align 4
-@__data_end = external global i8, align 1
-@data_pointer = hidden global i8* @__data_end, align 4
-
 ; Function Attrs: noinline nounwind optnone
-define hidden i8* @heap() #0 {
-  %1 = load i8*, i8** @heap_pointer, align 4
-  ret i8* %1
+define hidden i32 @bar() #0 {
+  ret i32 3333
 }
 
 ; Function Attrs: noinline nounwind optnone
-define hidden i8* @data() #0 {
-  %1 = load i8*, i8** @data_pointer, align 4
-  ret i8* %1
+define hidden i32 @fox() #0 {
+  %1 = call i32 @bar()
+  ret i32 %1
 }
 
 attributes #0 = { noinline nounwind optnone "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="none" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="generic" "unsafe-fp-math"="false" "use-soft-float"="false" }

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--shared -o out.wasm module1.c module2.c
+
+# clang --target=wasm32 -Ofast  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O3 --shared -o out.wasm module1.c module2.c
+# clang --target=wasm32 -O3  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -Wl,--lto-O0 -Wl,--shared -o out.wasm module1.c module2.c
+# wasm-opt out.wasm --print
+
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module1.wasm module1.c
+# clang --target=wasm32  -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined  -o module2.wasm module2.c
+
+# ========================================
+# clang --target=wasm32 -O3  -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined \
+    # -Wl,--lto-O0 -D WASM -o mempool.wasm platform.c
+
+# -allow-undefined-file wasm.syms
+# -Wl,--initial-memory=131072 \
+    # -Wl,--shared  \
+   # -Wl,--export-dynamic  \
+
+# clang --target=wasm32  -nostdlib \
+# -Wl,--no-entry -Wl,--allow-undefined \
+#    -Wl,--export-dynamic  \
+#    -D WASM -o mempool.wasm platform.c malloc.c printf.c
+
+clang --target=wasm32  -nostdlib -Wl,--no-entry\
+    -D WASM platform.c
+
+# wasm-opt mempool.wasm --print -O1
+
+# (module
+#  (type $none_=>_none (func))
+#  (memory $0 2)
+#  (table $0 1 1 funcref)
+#  (global $global$0 (mut i32) (i32.const 66560))
+#  (global $global$1 i32 (i32.const 1024))
+#  (export "__dso_handle" (i32.const 1024))
+#  (export "__data_end" (i32.const 1024))
+#  (export "__global_base" (i32.const 66560))
+#  (export "__heap_base" (i32.const 0))
+#  (export "__memory_base" (i32.const 1))
+#  (export "__table_base" (memory $0))
+#  (export "__wasm_call_ctors" (func $__wasm_call_ctors))
+#  (func $__wasm_call_ctors
+#  )
+#  ;; custom section "producers", size 112
+# )
